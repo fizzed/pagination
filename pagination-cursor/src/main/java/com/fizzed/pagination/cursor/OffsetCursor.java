@@ -6,6 +6,10 @@ public class OffsetCursor extends ValueCursor<Long> {
         super(Cursors.LONG_SERIALIZER);
     }
     
+    public boolean isEmpty() {
+        return this.getValue() == null || this.getValue().isAbsent() || this.getValue().get() <= 0L;
+    }
+    
     public OffsetCursor next(Long limit, Long knownTotalCount) {
         Long nextOffset = Cursors.nextLongOffset(this.getValue().orElse(null), limit, knownTotalCount);
         return OffsetCursor.of(nextOffset);

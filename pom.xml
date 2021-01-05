@@ -20,6 +20,7 @@
     <modules>
         <module>pagination-core</module>
         <module>pagination-cursor</module>
+        <module>pagination-ebean</module>
     </modules>
 
     <properties>
@@ -49,9 +50,16 @@
     <dependencyManagement>
         
         <dependencies>
+            
             <dependency>
                 <groupId>com.fizzed</groupId>
                 <artifactId>pagination-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.fizzed</groupId>
+                <artifactId>pagination-cursor</artifactId>
                 <version>${project.version}</version>
             </dependency>
             

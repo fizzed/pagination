@@ -6,7 +6,7 @@ public class StringLongMapCursor extends StringMapCursor<Long> {
         super(Cursors.LONG_SERIALIZER);
     }
     
-    static public MapCursor<String,Long> parse(String value) {
+    static public StringLongMapCursor parse(String value) {
         StringLongMapCursor cursor = new StringLongMapCursor();
         StringMapCursor.parse(value, cursor, Cursors.LONG_DESERIALIZER);
         return cursor;

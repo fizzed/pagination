@@ -3,7 +3,6 @@ package com.fizzed.pagination.cursor;
 import com.fizzed.crux.util.Maybe;
 import static com.fizzed.crux.util.Maybe.maybe;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

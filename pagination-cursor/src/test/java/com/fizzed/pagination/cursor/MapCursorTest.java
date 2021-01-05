@@ -1,7 +1,5 @@
 package com.fizzed.pagination.cursor;
 
-import com.fizzed.pagination.cursor.StringLongMapCursor;
-import com.fizzed.pagination.cursor.MapCursor;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasEntry;

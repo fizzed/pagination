@@ -8,7 +8,7 @@ public class StringMapCursor<V> extends MapCursor<String,V> {
         super(Cursors.STRING_SERIALIZER, valueSerializer);
     }
     
-    static protected <V> boolean parse(String value, MapCursor<String,V> cursor, Function<String,V> valueDeserializer) {
+    static public <V> boolean parse(String value, MapCursor<String,V> cursor, Function<String,V> valueDeserializer) {
         return MapCursor.parse(value, cursor, Cursors.STRING_DESERIALIZER, valueDeserializer);
     }
 

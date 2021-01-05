@@ -69,7 +69,7 @@ public class MapCursor<K,V> implements Cursor {
             .collect(Collectors.joining(","));
     }
     
-    static protected <K,V> boolean parse(String value, MapCursor<K,V> cursor, Function<String,K> keyDeserializer, Function<String,V> valueDeserializer) {
+    static public <K,V> boolean parse(String value, MapCursor<K,V> cursor, Function<String,K> keyDeserializer, Function<String,V> valueDeserializer) {
         if (isBlank(value)) {
             return false;
         }

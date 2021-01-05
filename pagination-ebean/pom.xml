@@ -2,8 +2,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fizzed</groupId>
-    <artifactId>pagination-core</artifactId>
-    <name>pagination-core</name>
+    <artifactId>pagination-ebean</artifactId>
+    <name>pagination-ebean</name>
     <packaging>jar</packaging>
 
     <parent>
@@ -13,16 +13,23 @@
     </parent>
   
     <properties>
-        <main.java.package>com.fizzed.pagination</main.java.package>
+        <main.java.package></main.java.package>
     </properties>
 
     <dependencies>
         
         <dependency>
             <groupId>com.fizzed</groupId>
-            <artifactId>crux-util</artifactId>
+            <artifactId>pagination-cursor</artifactId>
         </dependency>
-
+        
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean</artifactId>
+            <version>12.6.4</version>
+            <optional>true</optional>
+        </dependency>
+        
         <!-- testing -->
     
         <dependency>
