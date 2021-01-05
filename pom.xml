@@ -4,7 +4,7 @@
     <groupId>com.fizzed</groupId>
     <artifactId>pagination</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <parent>
         <groupId>com.fizzed</groupId>
@@ -15,7 +15,7 @@
     <scm>
         <url>https://github.com/fizzed/pagination.git</url>
         <connection>scm:git:git@github.com:fizzed/pagination.git</connection>
-      <tag>v0.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
     
     <modules>
