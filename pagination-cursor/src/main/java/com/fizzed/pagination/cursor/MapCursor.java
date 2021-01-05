@@ -20,7 +20,7 @@ public class MapCursor<K,V> implements Cursor {
             Function<V,String> valueSerializer) {
         this.keySerializer = keySerializer;
         this.valueSerializer = valueSerializer;
-        this.values = new LinkedHashMap<>();
+        this.values = new LinkedHashMap<>();        // ordering important
     }
     
     public Map<K,V> getValues() {
