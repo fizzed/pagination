@@ -53,24 +53,6 @@ public class PaginatedList<T> implements Iterable<T> {
         return this;
     }
 
-    // helpers
-
-    static public <T> PaginatedList<T> of(List<T> values) {
-        PaginatedList<T> pl = new PaginatedList<>();
-        Pagination p = new Pagination();
-        p.setCount((long)size(values));
-        pl.setPagination(p);
-        pl.setValues(values);
-        return pl;
-    }
-    
-    static public <T> PaginatedList<T> empty() {
-        PaginatedList<T> pl = of(Collections.emptyList());
-        pl.nextMethod(p -> null);
-        pl.previousMethod(p -> null);
-        return pl;
-    }
-    
     @Override
     public Iterator<T> iterator() {
         return new PaginatedListIterator<>(this);
@@ -81,14 +63,6 @@ public class PaginatedList<T> implements Iterable<T> {
         return StreamSupport.stream(
             Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED),
             false);
-    }
-    
-    static public boolean isEmpty(PaginatedList<?> paginatedList) {
-        return paginatedList == null || paginatedList.isEmpty();
-    }
-    
-    public boolean isEmpty() {
-        return this.getValues() == null || this.getValues().isEmpty();
     }
     
     public boolean nextSupported() {

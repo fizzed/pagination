@@ -2,6 +2,8 @@ package com.fizzed.pagination.ebean;
 
 import static com.fizzed.crux.util.Maybe.maybe;
 import static com.fizzed.crux.util.MoreObjects.size;
+import static java.util.Optional.ofNullable;
+
 import com.fizzed.pagination.PaginatedList;
 import com.fizzed.pagination.Pagination;
 import com.fizzed.pagination.cursor.OffsetCursor;
@@ -11,7 +13,44 @@ import java.util.List;
 import java.util.Objects;
 
 public class EbeanPaginatedLists {
- 
+
+    static public <T> PaginatedList<T> findPaged(
+            ExpressionList<T> ebeanQuery,
+            OffsetCursor cursor,
+            Integer limit,
+            boolean includeTotalCount) {
+
+        return findPaged(
+            ebeanQuery,
+            cursor,
+            ofNullable(limit).map(v -> v.longValue()).orElse(null),
+            includeTotalCount);
+    }
+
+    static public <T> PaginatedList<T> findPaged(
+            ExpressionList<T> ebeanQuery,
+            OffsetCursor cursor,
+            Long limit,
+            boolean includeTotalCount) {
+
+        fillPaginatedQuery(ebeanQuery, cursor, limit);
+
+        final PagedList<T> pagedValues = ebeanQuery.findPagedList();
+
+        return toPaginatedList(pagedValues, cursor, includeTotalCount);
+    }
+
+    static public <T> void fillPaginatedQuery(
+            ExpressionList<T> query,
+            OffsetCursor cursor,
+            Integer limit) {
+
+        fillPaginatedQuery(
+            query,
+            cursor,
+            maybe(limit).map(v -> v.longValue()).orNull());
+    }
+
     static public <T> void fillPaginatedQuery(
             ExpressionList<T> query,
             OffsetCursor cursor,
@@ -23,7 +62,18 @@ public class EbeanPaginatedLists {
         
         fillPaginatedQuery(query, offset, limit);
     }
- 
+
+    static public <T> void fillPaginatedQuery(
+            ExpressionList<T> query,
+            Integer offset,
+            Integer limit) {
+
+        fillPaginatedQuery(
+            query,
+            maybe(offset).map(v -> v.longValue()).orNull(),
+            maybe(limit).map(v -> v.longValue()).orNull());
+    }
+
     static public <T> void fillPaginatedQuery(
             ExpressionList<T> query,
             Long offset,

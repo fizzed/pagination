@@ -19,7 +19,7 @@ public class PaginatedListIterator<T> implements Iterator<T> {
 
     private T fetchNext() {
         // empty?
-        if (PaginatedList.isEmpty(paginatedList)) {
+        if (PaginatedLists.isEmpty(paginatedList)) {
             return null;
         }
         
@@ -34,7 +34,7 @@ public class PaginatedListIterator<T> implements Iterator<T> {
         }
         
         // empty?
-        if (PaginatedList.isEmpty(paginatedList)) {
+        if (PaginatedLists.isEmpty(paginatedList)) {
             return null;
         }
         
