@@ -1,5 +1,9 @@
 package com.fizzed.pagination.cursor;
 
+import com.fizzed.pagination.CursorLimit;
+
+import static java.util.Optional.ofNullable;
+
 public class OffsetCursor extends ValueCursor<Long> {
     
     public OffsetCursor() {
@@ -29,11 +33,17 @@ public class OffsetCursor extends ValueCursor<Long> {
         cursor.setValue(value);
         return cursor;
     }
-    
+
     static public OffsetCursor parse(String value) {
         OffsetCursor cursor = new OffsetCursor();
         ValueCursor.parse(value, cursor, Cursors.LONG_DESERIALIZER);
         return cursor;
     }
-    
+
+    static public OffsetCursor parse(CursorLimit value) {
+        return parse(ofNullable(value)
+            .map(v -> v.getCursor())
+            .orElse(null));
+    }
+
 }

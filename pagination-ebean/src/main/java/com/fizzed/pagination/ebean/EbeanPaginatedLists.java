@@ -4,6 +4,7 @@ import static com.fizzed.crux.util.Maybe.maybe;
 import static com.fizzed.crux.util.MoreObjects.size;
 import static java.util.Optional.ofNullable;
 
+import com.fizzed.pagination.CursorLimit;
 import com.fizzed.pagination.PaginatedList;
 import com.fizzed.pagination.Pagination;
 import com.fizzed.pagination.cursor.OffsetCursor;
@@ -11,8 +12,26 @@ import io.ebean.ExpressionList;
 import io.ebean.PagedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class EbeanPaginatedLists {
+
+    static public <T> PaginatedList<T> findPagedWithOffsetCursor(
+            ExpressionList<T> ebeanQuery,
+            CursorLimit cursorLimit,
+            int defaultLimit,
+            boolean includeTotalCount) {
+
+        final OffsetCursor cursor = maybe(cursorLimit)
+            .map(v -> OffsetCursor.parse(v.getCursor()))
+            .orNull();
+
+        final Integer limit = maybe(cursorLimit)
+            .map(v -> v.getLimit())
+            .orElse(defaultLimit);
+
+        return findPaged(ebeanQuery, cursor, limit, includeTotalCount);
+    }
 
     static public <T> PaginatedList<T> findPaged(
             ExpressionList<T> ebeanQuery,

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -34,7 +35,6 @@ public class PaginatedList<T> implements Iterable<T> {
         return this;
     }
 
-    
     public PaginateMethod<Pagination, PaginatedList<T>> nextMethod() {
         return this.nextMethod;
     }
@@ -91,6 +91,13 @@ public class PaginatedList<T> implements Iterable<T> {
             throw new UnsupportedOperationException("Previous page not supported");
         }
         return this.previousMethod.apply(this.pagination);
+    }
+
+    public PaginatedList<T> updateValues(Consumer<List<T>> valuesConsumer) {
+        if (this.values != null && !this.values.isEmpty()) {
+            valuesConsumer.accept(this.values);
+        }
+        return this;
     }
 
 }

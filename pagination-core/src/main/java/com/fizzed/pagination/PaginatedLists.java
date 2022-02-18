@@ -1,8 +1,10 @@
 package com.fizzed.pagination;
 
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 
+import static com.fizzed.crux.util.Maybe.maybe;
 import static com.fizzed.crux.util.MoreObjects.size;
 import static java.util.Optional.ofNullable;
 
@@ -70,6 +72,40 @@ public class PaginatedLists {
         return paginatedList == null
             || paginatedList.getValues() == null
             || paginatedList.getValues().isEmpty();
+    }
+
+    static public <T extends CursorLimit & Serializable> T cloneForNext(
+            Pagination pagination,
+            T value,
+            Class<T> type) {
+
+        final T nextValue;
+
+        if (value != null) {
+            try {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ObjectOutputStream out = new ObjectOutputStream(bos);
+                out.writeObject(value);
+                ByteArrayInputStream bis = new   ByteArrayInputStream(bos.toByteArray());
+                ObjectInputStream in = new ObjectInputStream(bis);
+                nextValue = (T)in.readObject();
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unable to clone object", e);
+            }
+        } else {
+            try {
+                nextValue = type.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unable to create new instance of type " + type.getCanonicalName(), e);
+            }
+        }
+
+        // update the "next" value
+        if (pagination != null) {
+            nextValue.updateCursor(pagination.getNext());
+        }
+
+        return nextValue;
     }
 
 }
