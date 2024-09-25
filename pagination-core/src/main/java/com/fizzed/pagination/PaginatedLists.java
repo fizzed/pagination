@@ -3,12 +3,28 @@ package com.fizzed.pagination;
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static com.fizzed.crux.util.Maybe.maybe;
 import static com.fizzed.crux.util.MoreObjects.size;
 import static java.util.Optional.ofNullable;
 
 public class PaginatedLists {
+
+    static public <T,V> PaginatedList<V> map(PaginatedList<T> paginatedList, Function<? super T, ? extends V> mapper) {
+        if (paginatedList != null) {
+            PaginatedList<V> newPaginatedList = new PaginatedList<>();
+            newPaginatedList.setPagination(paginatedList.getPagination());
+            if (paginatedList.getValues() != null) {
+                newPaginatedList.setValues(paginatedList.getValues().stream()
+                    .map(mapper)
+                    .collect(Collectors.toList())
+                );
+            }
+            return newPaginatedList;
+        }
+        return null;
+    }
 
     static public <T> PaginatedList<T> ofList(List<T> values) {
         PaginatedList<T> pl = new PaginatedList<>();
