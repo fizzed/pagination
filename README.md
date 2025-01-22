@@ -24,7 +24,7 @@ In your `pom.xml` add the following dependency:
 <dependency>
   <groupId>com.fizzed</groupId>
   <artifactId>pagination-cursor</artifactId>
-  <version>VERSION-HERE</version>
+  <version>0.0.5</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ If you're working w/ Ebean.io ORM add the following:
 <dependency>
   <groupId>com.fizzed</groupId>
   <artifactId>pagination-ebean</artifactId>
-  <version>VERSION-HERE</version>
+  <version>0.0.5</version>
 </dependency>
 ```
 
